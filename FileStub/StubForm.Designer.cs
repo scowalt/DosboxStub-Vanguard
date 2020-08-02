@@ -434,7 +434,7 @@
             this.MinimumSize = new System.Drawing.Size(516, 352);
             this.Name = "StubForm";
             this.Tag = "color:dark2";
-            this.Text = "File Stub ";
+            this.Text = "DosboxStub ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StubForm_FormClosing);
             this.Load += new System.EventHandler(this.StubForm_Load);
             this.pnTarget.ResumeLayout(false);

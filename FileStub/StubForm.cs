@@ -49,7 +49,7 @@ namespace FileStub
             cbSelectedExecution.SelectedIndex = 0;
             cbTargetType.SelectedIndex = 0;
 
-            UICore.SetRTCColor(Color.Plum, this);
+            UICore.SetRTCColor(Color.Lavender, this);
 
             FileWatch.Start();
         }
