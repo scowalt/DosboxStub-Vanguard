@@ -19,12 +19,18 @@ namespace FileStub
 {
     public static class FileWatch
     {
-        public static string FileStubVersion = "0.0.1";
+        public static string FileStubVersion = "0.0.3";
         public static string currentDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+        public static string DosboxSavestateFolder = Path.Combine(FileWatch.currentDir, "DOSBOX", "save");
+        public static string DosboxSavestateWorkFolder = Path.Combine(FileWatch.currentDir, "DOSBOX", "save", "1");
+        public static string DosboxSavestateWorkMemoryFile = Path.Combine(FileWatch.currentDir, "DOSBOX", "save", "1", "Memory");
 
         public static FileStubFileInfo currentFileInfo = new FileStubFileInfo();
 
         public static ProgressForm progressForm;
+
+        const int UNCOMPRESSED_MEMORY_OFFSET = 0x7F;
+
 
 
         public static void Start()
@@ -102,108 +108,59 @@ namespace FileStub
 
         internal static bool LoadTarget()
         {
-            if(currentFileInfo.selectedTargetType == TargetType.SINGLE_FILE)
+
+            FileInterface.identity = FileInterfaceIdentity.SELF_DESCRIBE;
+
+            
+
+            if (!File.Exists(DosboxSavestateWorkMemoryFile))
             {
-                FileInterface.identity = FileInterfaceIdentity.SELF_DESCRIBE;
-
-                string filename = Path.Combine(FileWatch.currentDir, "DOSBOX", "save", "1", "Memory");
-
-                if(!File.Exists(filename))
-                {
-                    MessageBox.Show($"Could not find part of the path {filename}\n\nMake sure you have created your savestate with the button in this interface\n\nIf you changed the Save State slot, put it back to 1.");
-                    return false;
-                }
-
-                /*
-                OpenFileDialog OpenFileDialog1;
-                OpenFileDialog1 = new OpenFileDialog();
-
-                OpenFileDialog1.Title = "Open File";
-                OpenFileDialog1.Filter = "files|*.*";
-                OpenFileDialog1.RestoreDirectory = true;
-                if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    if (OpenFileDialog1.FileName.ToString().Contains('^'))
-                    {
-                        MessageBox.Show("You can't use a file that contains the character ^ ");
-                        return false;
-                    }
-
-                    filename = OpenFileDialog1.FileName;
-                }
-                else
-                    return false;
-                */
-
-                string targetId = "File|" + filename;
-
-                CloseTarget(false);
-
-
-                FileInterface fi = null;
-
-                Action<object, EventArgs> action = (ob, ea) =>
-                {
-                    fi = new FileInterface(targetId, FileWatch.currentFileInfo.bigEndian, true);
-
-                    if (FileWatch.currentFileInfo.useCacheAndMultithread)
-                        fi.getMemoryDump();
-                };
-
-                Action<object, EventArgs> postAction = (ob, ea) =>
-                {
-                    if (fi == null || fi.lastMemorySize == null)
-                    {
-                        MessageBox.Show("Failed to load target");
-                        S.GET<StubForm>().DisableTargetInterface();
-                        return;
-                    }
-
-                    FileWatch.currentFileInfo.targetShortName = fi.ShortFilename;
-                    FileWatch.currentFileInfo.targetFullName = fi.Filename;
-
-                    FileWatch.currentFileInfo.targetInterface = fi;
-                    S.GET<StubForm>().lbTarget.Text = targetId + "|MemorySize:" + fi.lastMemorySize.ToString();
-
-                    if(VanguardCore.vanguardConnected)
-                        UpdateDomains();
-
-                    //Refresh the UI
-                    //RefreshUIPostLoad();
-                };
-
-                S.GET<StubForm>().RunProgressBar($"Loading target...", 0, action, postAction);
-
+                MessageBox.Show($"Could not find part of the path {DosboxSavestateWorkMemoryFile}\n\nMake sure you have created your savestate with the button in this interface\n\nIf you changed the Save State slot, put it back to 1.");
+                return false;
             }
-            else //MULTIPLE_FILE
+
+
+            string targetId = "File|" + DosboxSavestateWorkMemoryFile;
+
+            CloseTarget(false);
+
+
+            FileInterface fi = null;
+
+            
+
+            Action<object, EventArgs> action = (ob, ea) =>
             {
-                switch(currentFileInfo.selectedTargetType)
+                fi = new FileInterface(targetId, FileWatch.currentFileInfo.bigEndian, true, _startPadding: UNCOMPRESSED_MEMORY_OFFSET);
+
+                if (FileWatch.currentFileInfo.useCacheAndMultithread)
+                    fi.getMemoryDump();
+            };
+
+            Action<object, EventArgs> postAction = (ob, ea) =>
+            {
+                if (fi == null || fi.lastMemorySize == null)
                 {
-                    case TargetType.MULTIPLE_FILE_SINGLEDOMAIN:
-                        FileInterface.identity = FileInterfaceIdentity.SELF_DESCRIBE;
-                            break;
-                    case TargetType.MULTIPLE_FILE_MULTIDOMAIN:
-                        FileInterface.identity = FileInterfaceIdentity.HASHED_PREFIX;
-                        break;
-                    case TargetType.MULTIPLE_FILE_MULTIDOMAIN_FULLPATH:
-                        FileInterface.identity = FileInterfaceIdentity.FULL_PATH;
-                        break;
+                    MessageBox.Show("Failed to load target");
+                    S.GET<StubForm>().DisableTargetInterface();
+                    return;
                 }
 
+                FileWatch.currentFileInfo.targetShortName = fi.ShortFilename;
+                FileWatch.currentFileInfo.targetFullName = fi.Filename;
 
-                S.GET<SelectMultipleForm>().Close();
-                var smForm = new SelectMultipleForm();
-                S.SET(smForm);
+                FileWatch.currentFileInfo.targetInterface = fi;
+                S.GET<StubForm>().lbTarget.Text = targetId + "|MemorySize:" + fi.lastMemorySize.ToString();
 
-                if (smForm.ShowDialog() != DialogResult.OK)
-                    return false;
+                if (VanguardCore.vanguardConnected)
+                    UpdateDomains();
 
+                //Refresh the UI
+                //RefreshUIPostLoad();
+            };
 
-                var mfi = (MultipleFileInterface)FileWatch.currentFileInfo.targetInterface;
-                //currentTargetName = mfi.ShortFilename;
-                S.GET<StubForm>().lbTarget.Text = mfi.ShortFilename + "|MemorySize:" + mfi.lastMemorySize.ToString();
-                StockpileManager_EmuSide.UnCorruptBL = null;
-            }
+            S.GET<StubForm>().RunProgressBar($"Loading target...", 0, action, postAction);
+
 
             return true;
         }
@@ -269,10 +226,10 @@ namespace FileStub
 
 
                 PartialSpec gameDone = new PartialSpec("VanguardSpec");
-                gameDone[VSPEC.SYSTEM] = "FileSystem";
+                gameDone[VSPEC.SYSTEM] = "Dosbox-x";
                 gameDone[VSPEC.GAMENAME] = FileWatch.currentFileInfo.targetShortName;
-                gameDone[VSPEC.SYSTEMPREFIX] = "FileStub";
-                gameDone[VSPEC.SYSTEMCORE] = "FileStub";
+                gameDone[VSPEC.SYSTEMPREFIX] = "Dosbox";
+                gameDone[VSPEC.SYSTEMCORE] = "Dosbox";
                 //gameDone[VSPEC.SYNCSETTINGS] = BIZHAWK_GETSET_SYNCSETTINGS;
                 gameDone[VSPEC.OPENROMFILENAME] = currentFileInfo.targetFullName;
                 gameDone[VSPEC.MEMORYDOMAINS_BLACKLISTEDDOMAINS] = new string[0];
@@ -307,20 +264,22 @@ namespace FileStub
 
                 List<MemoryDomainProxy> interfaces = new List<MemoryDomainProxy>();
 
-                switch (currentFileInfo.selectedTargetType)
-                {   //Checking if the FileInterface/MultiFileInterface is split in sub FileInterfaces 
+                interfaces.Add(new MemoryDomainProxy(currentFileInfo.targetInterface));
 
-                    case TargetType.MULTIPLE_FILE_MULTIDOMAIN:
-                    case TargetType.MULTIPLE_FILE_MULTIDOMAIN_FULLPATH:
-                        foreach (var fi in (currentFileInfo.targetInterface as MultipleFileInterface).FileInterfaces)
-                            interfaces.Add(new MemoryDomainProxy(fi));
-                        break;
-                    case TargetType.SINGLE_FILE:
-                    case TargetType.MULTIPLE_FILE_SINGLEDOMAIN:
-                    default:
-                        interfaces.Add(new MemoryDomainProxy(currentFileInfo.targetInterface));
-                        break;
-                }
+                //switch (currentFileInfo.selectedTargetType)
+                //{   //Checking if the FileInterface/MultiFileInterface is split in sub FileInterfaces 
+
+                //    case TargetType.MULTIPLE_FILE_MULTIDOMAIN:
+                //    case TargetType.MULTIPLE_FILE_MULTIDOMAIN_FULLPATH:
+                //        foreach (var fi in (currentFileInfo.targetInterface as MultipleFileInterface).FileInterfaces)
+                //            interfaces.Add(new MemoryDomainProxy(fi));
+                //        break;
+                //    case TargetType.SINGLE_FILE:
+                //    case TargetType.MULTIPLE_FILE_SINGLEDOMAIN:
+                //    default:
+                //        interfaces.Add(new MemoryDomainProxy(currentFileInfo.targetInterface));
+                //        break;
+                //}
 
                 foreach (MemoryDomainProxy mdp in interfaces)
                     mdp.BigEndian = currentFileInfo.bigEndian;

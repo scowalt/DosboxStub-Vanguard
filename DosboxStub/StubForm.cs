@@ -123,14 +123,14 @@ namespace FileStub
         Point originalLbTargetLocation;
         public void EnableTargetInterface()
         {
-            var diff = lbTarget.Location.X - btnBrowseTarget.Location.X;
+            var diff = lbTarget.Location.X - btnLoadTarget.Location.X;
             originalLbTargetLocation = lbTarget.Location;
-            lbTarget.Location = btnBrowseTarget.Location;
+            lbTarget.Location = btnLoadTarget.Location;
             lbTarget.Visible = true;
 
             btnTargetSettings.Visible = false;
 
-            btnBrowseTarget.Visible = false;
+            btnLoadTarget.Visible = false;
             originalLbTargetSize = lbTarget.Size;
             lbTarget.Size = new Size(lbTarget.Size.Width + diff, lbTarget.Size.Height);
             btnUnloadTarget.Visible = true;
@@ -149,7 +149,7 @@ namespace FileStub
         public void DisableTargetInterface()
         {
             btnUnloadTarget.Visible = false;
-            btnBrowseTarget.Visible = true;
+            btnLoadTarget.Visible = true;
             lbTarget.Size = originalLbTargetSize;
             lbTarget.Location = originalLbTargetLocation;
             lbTarget.Visible = false;
@@ -170,8 +170,22 @@ namespace FileStub
             lbTargetStatus.Text = "No target selected";
         }
 
-        private void BtnBrowseTarget_Click(object sender, EventArgs e)
+        private void BtnLoadTarget_Click(object sender, EventArgs e)
         {
+            //only use backups for uncorrupt, reset on every reload
+            foreach (string file in Directory.GetFiles(Path.Combine(FileWatch.currentDir, "FILEBACKUPS")))
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch
+                {
+                    MessageBox.Show($"Could not delete file {file}");
+                }
+            }
+
+
 
             if (!FileWatch.LoadTarget())
                 return;
@@ -183,7 +197,7 @@ namespace FileStub
 
         }
 
-        private void BtnReleaseTarget_Click(object sender, EventArgs e)
+        public void BtnUnloadTarget_Click(object sender, EventArgs e)
         {
             if (!FileWatch.CloseTarget())
                 return;
@@ -335,6 +349,31 @@ Are you sure you want to reset the current target's backup?", "WARNING", Message
             //string newConf = File.ReadAllText(guestosTemplateConfPath) + Environment.NewLine + tbAutoexec.Text;
             string newConf = File.ReadAllText(guestosTemplateConfPath);
 
+            if(cbCopyDriveNextBoot.Checked)
+            {
+                string replaceText =
+@"
+MOUNT D DRIVE
+C:
+RD /s /q DRIVE 
+mkdir DRIVE
+D:
+echo COPYING FILES TO VM 
+echo THIS CAN TAKE A LONG TIME
+echo IF THERE ARE BIG FILES TO TRANSFERT
+copy *.* C:\DRIVE
+";
+                newConf = newConf.Replace("BOOT C:", replaceText + Environment.NewLine + "BOOT C:");
+
+                cbCopyDriveNextBoot.Checked = false;
+            }
+
+            if (cbCustomAutoexec.Checked)
+            {
+                string replaceText = tbAutoexec.Text;
+                newConf = newConf.Replace("BOOT C:", replaceText + Environment.NewLine + "BOOT C:");
+            }
+
             File.WriteAllText(guestosConfPath, newConf);
         }
 
@@ -379,42 +418,106 @@ Are you sure you want to reset the current target's backup?", "WARNING", Message
             RunFile("DOSBOX_KILL.bat");
         }
 
-        private void btnRamSaveState_Click(object sender, EventArgs e)
+        public void btnRamSaveState_Click(object sender, EventArgs e)
         {
 
-            string savFilePath = Path.Combine(FileWatch.currentDir, "DOSBOX", "save", "1.sav");
+            if (!btnLoadTarget.Visible)
+                BtnUnloadTarget_Click(null, null);
 
-            if (File.Exists(savFilePath))
-                File.Delete(savFilePath);
+
+            string savFilePath = Path.Combine(FileWatch.currentDir, "DOSBOX", "save", "1.sav");
+            string memoryFilePath = Path.Combine(FileWatch.currentDir, "DOSBOX", "save", "Memory");
+
+
+            //if (File.Exists(savFilePath))
+            //    File.Delete(savFilePath);
+
+            
 
             RunFile("DOSBOX\\SaveState.exe", true);
+
+            //wait for memory file to exist
+            while (true)
+            {
+                if (File.Exists(memoryFilePath))
+                    break;
+
+                Thread.Sleep(200); //retry in 200ms
+            }
+
+            //wait for memory file to disapear
+            while (true)
+            {
+                if (!File.Exists(memoryFilePath))
+                    break;
+
+                Thread.Sleep(200); //retry in 200ms
+            }
 
             //This detects that the savestate was written and finished writing
             while (true)
             {
                 if(File.Exists(savFilePath))
                 {
+
                     try {
-                        var fs = File.OpenRead(savFilePath);
+                        var fs = File.OpenWrite(savFilePath);
                         Thread.Sleep(30);
                         fs.Close();
                         break;
                     }
-                    catch { } //if it falls in the catch, means it's still writing the savestate
+                    catch {
+                        new object();
+                    } //if it falls in the catch, means it's still writing the savestate
                 }
 
                 Thread.Sleep(200); //retry in 200ms
             }
 
 
-            RunFile("RAM_STATE_UNPACK.bat");
+            RunFile("RAM_STATE_UNPACK.bat", true);
+
+
+            if (btnLoadTarget.Visible)
+                BtnLoadTarget_Click(null, null);
+
         }
 
-        private void btnRamLoadState_Click(object sender, EventArgs e)
+        public void btnRamLoadState_Click(object sender, EventArgs e)
         {
             RunFile("RAM_STATE_REPACK.bat", true);
             RunFile("DOSBOX\\LoadState.exe");
+
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+@"The default Dos config will mount the DRIVE folder as C.
+If you put a game in the DRIVE folder, add the call to starting the game
+in the autoexec textbox.
+"
+                );
+        }
+
+        private void btnBrowseDriveFolder_Click(object sender, EventArgs e)
+        {
+            string driveFolder = Path.Combine(FileWatch.currentDir, "DOSBOX", "DRIVE");
+            Process.Start(driveFolder);
+        }
+
+        private void btnLoadUncorrupted_Click(object sender, EventArgs e)
+        {
+            FileWatch.currentFileInfo.targetInterface?.CloseStream();
+            FileWatch.currentFileInfo.targetInterface?.RestoreBackup(false);
+
+            btnRamLoadState_Click(null, null);
+        }
+
+        private void btnShowAdvanced_Click(object sender, EventArgs e)
+        {
+            pnAdvancedDosbox.Location = pnBasicDosbox.Location;
+            pnBasicDosbox.Visible = false;
+        }
     }
 }

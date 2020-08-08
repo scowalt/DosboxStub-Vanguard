@@ -12,6 +12,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Vanguard
 {
@@ -119,8 +120,8 @@ namespace Vanguard
         {
             var partial = new PartialSpec("VanguardSpec");
 
-            partial[VSPEC.NAME] = "FileStub";
-            partial[VSPEC.SYSTEM] = "FileSystem";
+            partial[VSPEC.NAME] = "DosboxStub";
+            partial[VSPEC.SYSTEM] = "Dosbox-x";
             partial[VSPEC.GAMENAME] = String.Empty;
             partial[VSPEC.SYSTEMPREFIX] = String.Empty;
             partial[VSPEC.OPENROMFILENAME] = String.Empty;
@@ -131,14 +132,15 @@ namespace Vanguard
             partial[VSPEC.SUPPORTS_RENDERING] = false;
             partial[VSPEC.SUPPORTS_CONFIG_MANAGEMENT] = false;
             partial[VSPEC.SUPPORTS_CONFIG_HANDOFF] = false;
-            partial[VSPEC.SUPPORTS_SAVESTATES] = false;
+            partial[VSPEC.SUPPORTS_SAVESTATES] = true;
             partial[VSPEC.SUPPORTS_REFERENCES] = false;
             partial[VSPEC.OVERRIDE_DEFAULTMAXINTENSITY] = 655350;
             partial[VSPEC.SUPPORTS_GAMEPROTECTION] = false;
             partial[VSPEC.SUPPORTS_REALTIME] = false;
             partial[VSPEC.SUPPORTS_KILLSWITCH] = false;
             partial[VSPEC.SUPPORTS_MIXED_STOCKPILE] = false;
-            partial[VSPEC.REPLACE_MANUALBLAST_WITH_GHCORRUPT] = true;
+            partial[VSPEC.SUPPORTS_MULTITHREAD] = true;
+            //partial[VSPEC.REPLACE_MANUALBLAST_WITH_GHCORRUPT] = true;
             partial[VSPEC.EMUDIR] = emuDir;
 
             if(FileWatch.currentFileInfo.useCacheAndMultithread)
@@ -196,6 +198,92 @@ namespace Vanguard
             //If it's attached, lie to vanguard
             if (VanguardCore.attached)
                 VanguardConnector.ImplyClientConnected();
+        }
+
+
+        /// <summary>
+        /// Creates a savestate using a key as the filename and returns the path.
+        /// Bizhawk process only.
+        /// </summary>
+        /// <param name="Key"></param>
+        /// <param name="threadSave"></param>
+        /// <returns></returns>
+        public static string SaveSavestate_NET(string Key, bool threadSave = false)
+        {
+            //THIS HANDLES GAME SAVES AS SAVESTATES
+
+
+            if (!Directory.Exists(FileWatch.DosboxSavestateWorkFolder))
+            {
+                MessageBox.Show("No Uncompressed savestate could be found for STATE #1. Cancelling operation.\n\n If you are getting this error repeatedly, make sure Savestate Slot 1 is selected in Dosbox. Use GH Savestates.");
+                return null;
+            }
+
+            string quickSlotName = Key + ".timejump";
+
+            //Build up our path
+            var targetZipfilePath = Path.Combine(RtcCore.workingDir, "SESSION", "Memory" + "." + quickSlotName + ".State");
+
+            //If the path doesn't exist, make it
+            var file = new FileInfo(targetZipfilePath);
+
+            if (file.Exists)
+                file.Delete();
+
+            if (file.Directory != null && file.Directory.Exists == false)
+                file.Directory.Create();
+
+            CompressionLevel comp = CompressionLevel.NoCompression;
+            ZipFile.CreateFromDirectory(FileWatch.DosboxSavestateWorkFolder, targetZipfilePath, comp, false);
+
+            return targetZipfilePath;
+        }
+
+        /// <summary>
+        /// Loads a savestate from a path. 
+        /// </summary>
+        /// <param name="path">The path of the state</param>
+        /// <param name="stateLocation">Where the state is located in a stashkey (used for errors, not required)</param>
+        /// <returns></returns>
+        public static bool LoadSavestate_NET(string path, StashKeySavestateLocation stateLocation = StashKeySavestateLocation.DEFAULTVALUE)
+        {
+            //THIS HANDLES GAME SAVES AS SAVESTATES
+
+            try
+            {
+
+                //If we can't find the file, throw a message
+                //no it's fine we'd overwrite it anyway
+
+                //if (File.Exists(path) == false)
+                //{
+                //    MessageBox.Show("Unable to load " + Path.GetFileName(path) + " from " + stateLocation);
+                //    return false;
+                //}
+
+                //if (Directory.Exists(FileWatch.DosboxSavestateWorkFolder))
+                //    Stockpile.EmptyFolder(FileWatch.DosboxSavestateWorkFolder);
+
+                //var sf = S.GET<StubForm>();
+
+                //if (!sf.btnLoadTarget.Visible)
+                //    sf.BtnUnloadTarget_Click(null, null);
+
+                FileWatch.currentFileInfo.targetInterface?.CloseStream();
+
+                new DirectoryInfo(FileWatch.DosboxSavestateWorkFolder).GetFiles().ToList().ForEach(it => it.Delete());
+
+                ZipFile.ExtractToDirectory(path, FileWatch.DosboxSavestateWorkFolder);
+
+                RTCV.NetCore.AllSpec.CorruptCoreSpec.Update(RTCSPEC.STEP_RUNBEFORE.ToString(), true);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return false;
+            }
         }
 
 

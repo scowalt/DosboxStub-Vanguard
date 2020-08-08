@@ -77,11 +77,37 @@ namespace Vanguard
                         }
                         break;
                     case SAVESAVESTATE:
-                        e.setReturnValue("");
+
+                        string key = (advancedMessage.objectValue as string);
+
+                        //TODO: Sync states with keys
+
+                        SyncObjectSingleton.FormExecute(() =>
+                        {
+                            S.GET<StubForm>().btnRamSaveState_Click(null, null);
+                            string returnKey = VanguardCore.SaveSavestate_NET(key);
+                            e.setReturnValue(returnKey);
+                        });
+
                         break;
 
                     case LOADSAVESTATE:
+
+                        var cmd = advancedMessage.objectValue as object[];
+                        var path = cmd[0] as string;
+                        var location = (StashKeySavestateLocation)cmd[1];
+
+                        SyncObjectSingleton.FormExecute(() =>
+                        {
+
+
+                            //e.setReturnValue(VanguardCore.LoadSavestate_NET(path, location));
+                            VanguardCore.LoadSavestate_NET(path, location);
+                            S.GET<StubForm>().btnRamLoadState_Click(null, null);
+                        });
+
                         e.setReturnValue(true);
+
                         break;
 
                     case REMOTE_PRECORRUPTACTION:
@@ -92,7 +118,7 @@ namespace Vanguard
 
                     case REMOTE_POSTCORRUPTACTION:
                         //var fileName = advancedMessage.objectValue as String;
-                        FileWatch.currentFileInfo.targetInterface.CloseStream();
+                        FileWatch.currentFileInfo.targetInterface?.CloseStream();
                         SyncObjectSingleton.FormExecute(() =>
                         {
                             Executor.Execute();
