@@ -103,7 +103,7 @@ namespace Vanguard
 
                             //e.setReturnValue(VanguardCore.LoadSavestate_NET(path, location));
                             VanguardCore.LoadSavestate_NET(path, location);
-                            S.GET<StubForm>().btnRamLoadState_Click(null, null);
+                            S.GET<StubForm>().RepackState(false);
                         });
 
                         e.setReturnValue(true);

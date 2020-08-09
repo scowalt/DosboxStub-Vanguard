@@ -35,7 +35,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>iconcheap.ico</ApplicationIcon>
+    <ApplicationIcon>DosboxStub.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -133,6 +133,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DosboxStub.ico" />
     <Content Include="FileStubIcon.ico" />
     <Content Include="iconcheap.ico" />
   </ItemGroup>

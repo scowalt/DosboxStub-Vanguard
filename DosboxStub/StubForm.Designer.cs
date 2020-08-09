@@ -53,14 +53,10 @@
             this.lbTargetExecution = new System.Windows.Forms.Label();
             this.pnDosbox = new System.Windows.Forms.Panel();
             this.cbCopyDriveNextBoot = new System.Windows.Forms.CheckBox();
-            this.btnLoadUncorrupted = new System.Windows.Forms.Button();
             this.cbCustomAutoexec = new System.Windows.Forms.CheckBox();
             this.btnBrowseDriveFolder = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tbAutoexec = new System.Windows.Forms.TextBox();
             this.rbGuestOS = new System.Windows.Forms.RadioButton();
@@ -68,6 +64,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnRestoreDriveBackup = new System.Windows.Forms.Button();
+            this.btnLoadUncorrupted = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnDriveLoadState = new System.Windows.Forms.Button();
             this.btnDriveSaveState = new System.Windows.Forms.Button();
             this.btnKillDosbox = new System.Windows.Forms.Button();
@@ -76,13 +76,13 @@
             this.btnStartDosbox = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.pnBasicDosbox = new System.Windows.Forms.Panel();
-            this.pnAdvancedDosbox = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
             this.btnShowAdvanced = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.pnAdvancedDosbox = new System.Windows.Forms.Panel();
             this.pnTarget.SuspendLayout();
             this.pnSideBar.SuspendLayout();
             this.pnTargetExecution.SuspendLayout();
@@ -195,7 +195,7 @@
             this.btnTargetSettings.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.btnTargetSettings.ForeColor = System.Drawing.Color.OrangeRed;
             this.btnTargetSettings.Image = ((System.Drawing.Image)(resources.GetObject("btnTargetSettings.Image")));
-            this.btnTargetSettings.Location = new System.Drawing.Point(505, 13);
+            this.btnTargetSettings.Location = new System.Drawing.Point(506, 13);
             this.btnTargetSettings.Name = "btnTargetSettings";
             this.btnTargetSettings.Size = new System.Drawing.Size(32, 32);
             this.btnTargetSettings.TabIndex = 172;
@@ -481,23 +481,6 @@
             this.cbCopyDriveNextBoot.Text = "Copy DRIVE to C: next boot";
             this.cbCopyDriveNextBoot.UseVisualStyleBackColor = true;
             // 
-            // btnLoadUncorrupted
-            // 
-            this.btnLoadUncorrupted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.btnLoadUncorrupted.FlatAppearance.BorderSize = 0;
-            this.btnLoadUncorrupted.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadUncorrupted.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.btnLoadUncorrupted.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnLoadUncorrupted.Location = new System.Drawing.Point(250, 23);
-            this.btnLoadUncorrupted.Name = "btnLoadUncorrupted";
-            this.btnLoadUncorrupted.Size = new System.Drawing.Size(126, 56);
-            this.btnLoadUncorrupted.TabIndex = 63;
-            this.btnLoadUncorrupted.TabStop = false;
-            this.btnLoadUncorrupted.Tag = "color:dark2";
-            this.btnLoadUncorrupted.Text = "Load Backup State (Uncorrupted)";
-            this.btnLoadUncorrupted.UseVisualStyleBackColor = false;
-            this.btnLoadUncorrupted.Click += new System.EventHandler(this.btnLoadUncorrupted_Click);
-            // 
             // cbCustomAutoexec
             // 
             this.cbCustomAutoexec.AutoSize = true;
@@ -551,36 +534,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(2, 120);
             this.panel2.TabIndex = 59;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(8, 149);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(289, 13);
-            this.label9.TabIndex = 58;
-            this.label9.Text = "Optional: Save/Load DRIVE State (Dosbox must be closed)";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(8, 100);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(335, 13);
-            this.label8.TabIndex = 57;
-            this.label8.Text = "Optional: Load/Unload MEMORY file in RTC (Autoloads at savestate)";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(8, 5);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(237, 13);
-            this.label7.TabIndex = 56;
-            this.label7.Text = "Start Dosbox and create a RAM Save Savestate";
             // 
             // label6
             // 
@@ -669,6 +622,53 @@
             this.btnRestoreDriveBackup.UseVisualStyleBackColor = false;
             this.btnRestoreDriveBackup.Click += new System.EventHandler(this.btnRestoreDriveBackup_Click);
             // 
+            // btnLoadUncorrupted
+            // 
+            this.btnLoadUncorrupted.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnLoadUncorrupted.FlatAppearance.BorderSize = 0;
+            this.btnLoadUncorrupted.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoadUncorrupted.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.btnLoadUncorrupted.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnLoadUncorrupted.Location = new System.Drawing.Point(250, 23);
+            this.btnLoadUncorrupted.Name = "btnLoadUncorrupted";
+            this.btnLoadUncorrupted.Size = new System.Drawing.Size(126, 56);
+            this.btnLoadUncorrupted.TabIndex = 63;
+            this.btnLoadUncorrupted.TabStop = false;
+            this.btnLoadUncorrupted.Tag = "color:dark2";
+            this.btnLoadUncorrupted.Text = "Load Backup State (Uncorrupted)";
+            this.btnLoadUncorrupted.UseVisualStyleBackColor = false;
+            this.btnLoadUncorrupted.Click += new System.EventHandler(this.btnLoadUncorrupted_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(8, 149);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(289, 13);
+            this.label9.TabIndex = 58;
+            this.label9.Text = "Optional: Save/Load DRIVE State (Dosbox must be closed)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.White;
+            this.label8.Location = new System.Drawing.Point(8, 100);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(335, 13);
+            this.label8.TabIndex = 57;
+            this.label8.Text = "Optional: Load/Unload MEMORY file in RTC (Autoloads at savestate)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(8, 5);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(237, 13);
+            this.label7.TabIndex = 56;
+            this.label7.Text = "Start Dosbox and create a RAM Save Savestate";
+            // 
             // btnDriveLoadState
             // 
             this.btnDriveLoadState.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
@@ -684,6 +684,7 @@
             this.btnDriveLoadState.Tag = "color:dark2";
             this.btnDriveLoadState.Text = "DRIVE Load State";
             this.btnDriveLoadState.UseVisualStyleBackColor = false;
+            this.btnDriveLoadState.Click += new System.EventHandler(this.btnDriveLoadState_Click);
             // 
             // btnDriveSaveState
             // 
@@ -700,6 +701,7 @@
             this.btnDriveSaveState.Tag = "color:dark2";
             this.btnDriveSaveState.Text = "DRIVE Save State";
             this.btnDriveSaveState.UseVisualStyleBackColor = false;
+            this.btnDriveSaveState.Click += new System.EventHandler(this.btnDriveSaveState_Click);
             // 
             // btnKillDosbox
             // 
@@ -795,6 +797,94 @@
             this.pnBasicDosbox.TabIndex = 119;
             this.pnBasicDosbox.Tag = "color:dark1";
             // 
+            // btnShowAdvanced
+            // 
+            this.btnShowAdvanced.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnShowAdvanced.FlatAppearance.BorderSize = 0;
+            this.btnShowAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowAdvanced.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.btnShowAdvanced.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnShowAdvanced.Location = new System.Drawing.Point(216, 167);
+            this.btnShowAdvanced.Name = "btnShowAdvanced";
+            this.btnShowAdvanced.Size = new System.Drawing.Size(176, 23);
+            this.btnShowAdvanced.TabIndex = 67;
+            this.btnShowAdvanced.TabStop = false;
+            this.btnShowAdvanced.Tag = "color:dark2";
+            this.btnShowAdvanced.Text = "Advanced Dosbox Commands";
+            this.btnShowAdvanced.UseVisualStyleBackColor = false;
+            this.btnShowAdvanced.Click += new System.EventHandler(this.btnShowAdvanced_Click);
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button4.Location = new System.Drawing.Point(16, 82);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(228, 23);
+            this.button4.TabIndex = 66;
+            this.button4.TabStop = false;
+            this.button4.Tag = "color:dark2";
+            this.button4.Text = "Hook Memory state and connect to RTC";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.btnRamSaveState_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(13, 62);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(149, 13);
+            this.label11.TabIndex = 65;
+            this.label11.Text = "Step 3 : Hook RTC to Dosbox";
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button3.Location = new System.Drawing.Point(145, 23);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(99, 23);
+            this.button3.TabIndex = 64;
+            this.button3.TabStop = false;
+            this.button3.Tag = "color:dark2";
+            this.button3.Text = "Kill Dosbox";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.btnKillDosbox_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.button2.Location = new System.Drawing.Point(16, 23);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(123, 23);
+            this.button2.TabIndex = 58;
+            this.button2.TabStop = false;
+            this.button2.Tag = "color:dark2";
+            this.button2.Text = "Start/Restart Dosbox";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.btnStartDosbox_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(13, 3);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(298, 13);
+            this.label10.TabIndex = 57;
+            this.label10.Text = "Step 2 : Start Dosbox and let it load out of COMMAND/BOOT";
+            // 
             // pnAdvancedDosbox
             // 
             this.pnAdvancedDosbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -816,100 +906,12 @@
             this.pnAdvancedDosbox.TabIndex = 120;
             this.pnAdvancedDosbox.Tag = "color:dark1";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(13, 3);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(298, 13);
-            this.label10.TabIndex = 57;
-            this.label10.Text = "Step 2 : Start Dosbox and let it load out of COMMAND/BOOT";
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button2.Location = new System.Drawing.Point(16, 23);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 23);
-            this.button2.TabIndex = 58;
-            this.button2.TabStop = false;
-            this.button2.Tag = "color:dark2";
-            this.button2.Text = "Start/Restart Dosbox";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.btnStartDosbox_Click);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button3.Location = new System.Drawing.Point(145, 23);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(99, 23);
-            this.button3.TabIndex = 64;
-            this.button3.TabStop = false;
-            this.button3.Tag = "color:dark2";
-            this.button3.Text = "Kill Dosbox";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.btnKillDosbox_Click);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(13, 62);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(149, 13);
-            this.label11.TabIndex = 65;
-            this.label11.Text = "Step 3 : Hook RTC to Dosbox";
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.button4.Location = new System.Drawing.Point(16, 82);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(228, 23);
-            this.button4.TabIndex = 66;
-            this.button4.TabStop = false;
-            this.button4.Tag = "color:dark2";
-            this.button4.Text = "Hook Memory state and connect to RTC";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.btnRamSaveState_Click);
-            // 
-            // btnShowAdvanced
-            // 
-            this.btnShowAdvanced.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.btnShowAdvanced.FlatAppearance.BorderSize = 0;
-            this.btnShowAdvanced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowAdvanced.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.btnShowAdvanced.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnShowAdvanced.Location = new System.Drawing.Point(216, 167);
-            this.btnShowAdvanced.Name = "btnShowAdvanced";
-            this.btnShowAdvanced.Size = new System.Drawing.Size(176, 23);
-            this.btnShowAdvanced.TabIndex = 67;
-            this.btnShowAdvanced.TabStop = false;
-            this.btnShowAdvanced.Tag = "color:dark2";
-            this.btnShowAdvanced.Text = "Advanced Dosbox Commands";
-            this.btnShowAdvanced.UseVisualStyleBackColor = false;
-            this.btnShowAdvanced.Click += new System.EventHandler(this.btnShowAdvanced_Click);
-            // 
             // StubForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.ClientSize = new System.Drawing.Size(549, 438);
+            this.ClientSize = new System.Drawing.Size(550, 438);
             this.Controls.Add(this.pnAdvancedDosbox);
             this.Controls.Add(this.pnBasicDosbox);
             this.Controls.Add(this.label3);

@@ -52,7 +52,7 @@ namespace FileStub
             cbSelectedExecution.SelectedIndex = 0;
             cbTargetType.SelectedIndex = 0;
 
-            UICore.SetRTCColor(Color.Lavender, this);
+            UICore.SetRTCColor(Color.LightCoral, this);
 
             FileWatch.Start();
         }
@@ -485,9 +485,16 @@ copy *.* C:\DRIVE
 
         public void btnRamLoadState_Click(object sender, EventArgs e)
         {
-            RunFile("RAM_STATE_REPACK.bat", true);
-            RunFile("DOSBOX\\LoadState.exe");
+            RepackState(true);
 
+        }
+
+        public void RepackState(bool LoadState)
+        {
+            RunFile("RAM_STATE_REPACK.bat", true);
+
+            if(LoadState)
+                RunFile("DOSBOX\\LoadState.exe");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -518,6 +525,16 @@ in the autoexec textbox.
         {
             pnAdvancedDosbox.Location = pnBasicDosbox.Location;
             pnBasicDosbox.Visible = false;
+        }
+
+        private void btnDriveSaveState_Click(object sender, EventArgs e)
+        {
+            RunFile("DRIVE_STATE_SAVE.bat", true);
+        }
+
+        private void btnDriveLoadState_Click(object sender, EventArgs e)
+        {
+            RunFile("DRIVE_STATE_LOAD.bat", true);
         }
     }
 }
