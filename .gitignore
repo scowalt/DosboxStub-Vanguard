@@ -3,3 +3,9 @@ FileStub/bin/*
 FileStub/obj/*
 packages/*
 .vscode
+Dosbox
+
+*.pdb
+*.dll
+*.exe
+DosboxStub/obj/**
