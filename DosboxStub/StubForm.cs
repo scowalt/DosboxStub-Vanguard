@@ -52,7 +52,7 @@ namespace FileStub
             cbSelectedExecution.SelectedIndex = 0;
             cbTargetType.SelectedIndex = 0;
 
-            UICore.SetRTCColor(Color.LightCoral, this);
+            Colors.SetRTCColor(Color.LightCoral, this);
 
             FileWatch.Start();
         }
@@ -90,7 +90,7 @@ namespace FileStub
                     btnEditExec.Text = "Edit Exec";
                     break;
 
-                    
+
                 case ExecutionType.NO_EXECUTION:
                     lbArgs.Visible = false;
                     tbArgs.Visible = false;
@@ -355,10 +355,10 @@ Are you sure you want to reset the current target's backup?", "WARNING", Message
 @"
 MOUNT D DRIVE
 C:
-RD /s /q DRIVE 
+RD /s /q DRIVE
 mkdir DRIVE
 D:
-echo COPYING FILES TO VM 
+echo COPYING FILES TO VM
 echo THIS CAN TAKE A LONG TIME
 echo IF THERE ARE BIG FILES TO TRANSFERT
 copy *.* C:\DRIVE
@@ -432,7 +432,7 @@ copy *.* C:\DRIVE
             //if (File.Exists(savFilePath))
             //    File.Delete(savFilePath);
 
-            
+
 
             RunFile("DOSBOX\\SaveState.exe", true);
 
