@@ -20,7 +20,7 @@ namespace Vanguard
     {
         public static string[] args;
         public static bool vanguardStarted = false;
-        public static bool vanguardConnected => (VanguardImplementation.connector != null ? VanguardImplementation.connector.netcoreStatus == NetworkStatus.CONNECTED : false);
+        public static bool vanguardConnected => (VanguardImplementation.connector != null ? VanguardImplementation.connector.netcoreStatus == RTCV.NetCore.Enums.NetworkStatus.CONNECTED : false);
 
         internal static DialogResult ShowErrorDialog(Exception exception, bool canContinue = false)
         {
@@ -177,7 +177,7 @@ namespace Vanguard
         }
 
         //This is the entry point of RTC. Without this method, nothing will load.
-        
+
         public static void Start()
         {
 
@@ -240,7 +240,7 @@ namespace Vanguard
         }
 
         /// <summary>
-        /// Loads a savestate from a path. 
+        /// Loads a savestate from a path.
         /// </summary>
         /// <param name="path">The path of the state</param>
         /// <param name="stateLocation">Where the state is located in a stashkey (used for errors, not required)</param>
