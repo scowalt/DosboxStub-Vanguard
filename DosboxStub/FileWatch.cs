@@ -111,7 +111,7 @@ namespace FileStub
 
             FileInterface.identity = FileInterfaceIdentity.SELF_DESCRIBE;
 
-            
+
 
             if (!File.Exists(DosboxSavestateWorkMemoryFile))
             {
@@ -127,11 +127,11 @@ namespace FileStub
 
             FileInterface fi = null;
 
-            
+
 
             Action<object, EventArgs> action = (ob, ea) =>
             {
-                fi = new FileInterface(targetId, FileWatch.currentFileInfo.bigEndian, true, _startPadding: UNCOMPRESSED_MEMORY_OFFSET);
+                fi = new FileInterface(targetId, FileWatch.currentFileInfo.bigEndian, true, startPadding: UNCOMPRESSED_MEMORY_OFFSET);
 
                 if (FileWatch.currentFileInfo.useCacheAndMultithread)
                     fi.getMemoryDump();
@@ -167,8 +167,8 @@ namespace FileStub
 
         internal static void KillProcess()
         {
-            if (currentFileInfo.selectedExecution == ExecutionType.EXECUTE_OTHER_PROGRAM || 
-                currentFileInfo.selectedExecution == ExecutionType.EXECUTE_WITH || 
+            if (currentFileInfo.selectedExecution == ExecutionType.EXECUTE_OTHER_PROGRAM ||
+                currentFileInfo.selectedExecution == ExecutionType.EXECUTE_WITH ||
                 currentFileInfo.selectedExecution == ExecutionType.EXECUTE_CORRUPTED_FILE)
                 if (currentFileInfo.TerminateBeforeExecution && Executor.otherProgram != null)
                 {
@@ -190,7 +190,7 @@ namespace FileStub
                     {
                         processTemp.Start();
                         processTemp.WaitForExit();
-                        Thread.Sleep(500); //Add an artificial delay as sometimes handles don't release right away 
+                        Thread.Sleep(500); //Add an artificial delay as sometimes handles don't release right away
                     }
                     catch (Exception ex)
                     {
@@ -267,7 +267,7 @@ namespace FileStub
                 interfaces.Add(new MemoryDomainProxy(currentFileInfo.targetInterface));
 
                 //switch (currentFileInfo.selectedTargetType)
-                //{   //Checking if the FileInterface/MultiFileInterface is split in sub FileInterfaces 
+                //{   //Checking if the FileInterface/MultiFileInterface is split in sub FileInterfaces
 
                 //    case TargetType.MULTIPLE_FILE_MULTIDOMAIN:
                 //    case TargetType.MULTIPLE_FILE_MULTIDOMAIN_FULLPATH:

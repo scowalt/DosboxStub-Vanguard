@@ -1,0 +1,74 @@
+{
+  "version": 2,
+  "dgSpecHash": "uI+1qozdHGCKwOZRN0rk5jV28/JHUyqg6LWGvGjzEeIt56Iy8a3t63pmV/mwh5bXRCntUHKiSOXuj0bU7/7t7w==",
+  "success": true,
+  "projectFilePath": "D:\\Code\\DosboxStub-Vanguard\\DosboxStub\\DosboxStub.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\scowa\\.nuget\\packages\\ceras\\4.1.7\\ceras.4.1.7.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\microsoft.visualstudio.composition\\16.4.11\\microsoft.visualstudio.composition.16.4.11.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\microsoft.visualstudio.composition.netfxattributes\\16.4.11\\microsoft.visualstudio.composition.netfxattributes.16.4.11.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\microsoft.visualstudio.validation\\15.5.31\\microsoft.visualstudio.validation.15.5.31.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\nlog\\4.6.8\\nlog.4.6.8.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\nlog.windows.forms\\4.3.0\\nlog.windows.forms.4.3.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\sevenzipsharp.net45\\1.0.19\\sevenzipsharp.net45.1.0.19.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.collections.immutable\\1.7.0\\system.collections.immutable.1.7.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.componentmodel.composition\\4.7.0\\system.componentmodel.composition.4.7.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.composition\\1.4.0\\system.composition.1.4.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.composition.attributedmodel\\1.4.0\\system.composition.attributedmodel.1.4.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.composition.convention\\1.4.0\\system.composition.convention.1.4.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.composition.hosting\\1.4.0\\system.composition.hosting.1.4.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.composition.runtime\\1.4.0\\system.composition.runtime.1.4.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.composition.typedparts\\1.4.0\\system.composition.typedparts.1.4.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.reflection.metadata\\1.8.0\\system.reflection.metadata.1.8.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.reflection.typeextensions\\4.7.0\\system.reflection.typeextensions.4.7.0.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+    "C:\\Users\\scowa\\.nuget\\packages\\system.threading.tasks.dataflow\\4.11.0\\system.threading.tasks.dataflow.4.11.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package downgrade: Newtonsoft.Json from 12.0.3 to 12.0.2. Reference the package directly from the project to select a different version. \r\n DosboxStub -> UI -> Newtonsoft.Json (>= 12.0.3) \r\n DosboxStub -> Newtonsoft.Json (>= 12.0.2)",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.1",
+        ".NETFramework,Version=v4.7.1/win",
+        ".NETFramework,Version=v4.7.1/win-x64",
+        ".NETFramework,Version=v4.7.1/win-x86"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package downgrade: Newtonsoft.Json from 12.0.3 to 12.0.2. Reference the package directly from the project to select a different version. \r\n DosboxStub -> CorruptCore -> Newtonsoft.Json (>= 12.0.3) \r\n DosboxStub -> Newtonsoft.Json (>= 12.0.2)",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.1",
+        ".NETFramework,Version=v4.7.1/win",
+        ".NETFramework,Version=v4.7.1/win-x64",
+        ".NETFramework,Version=v4.7.1/win-x86"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package downgrade: Newtonsoft.Json from 12.0.3 to 12.0.2. Reference the package directly from the project to select a different version. \r\n DosboxStub -> NetCore -> Newtonsoft.Json (>= 12.0.3) \r\n DosboxStub -> Newtonsoft.Json (>= 12.0.2)",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.1",
+        ".NETFramework,Version=v4.7.1/win",
+        ".NETFramework,Version=v4.7.1/win-x64",
+        ".NETFramework,Version=v4.7.1/win-x86"
+      ]
+    }
+  ]
+}
