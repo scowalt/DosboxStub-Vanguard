@@ -88,9 +88,9 @@ namespace FileStub
             bool success = false;
             if (currentFileInfo.autoUncorrupt)
             {
-                if (StockpileManager_EmuSide.UnCorruptBL != null)
+                if (StockpileManagerEmuSide.UnCorruptBL != null)
                 {
-                    StockpileManager_EmuSide.UnCorruptBL.Apply(false);
+                    StockpileManagerEmuSide.UnCorruptBL.Apply(false);
                     success = true;
                 }
                 else
