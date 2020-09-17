@@ -1,5 +1,5 @@
 .vs/*
-FileStub/bin/*
-FileStub/obj/*
+DosboxStub/bin/*
+DosboxStub/obj/*
 packages/*
 .vscode
